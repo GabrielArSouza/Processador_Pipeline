@@ -1,0 +1,53 @@
+A- o tamanho da palavra do processador
+Endereçamento do mips eh feito com palavras de 4 bytes (32 bits).
+Logo, utilizaremos para o projeto palavras de 32 bits.
+
+
+B- o formato da palavra de instrução
+Será usado o formato de instruções tipo R segue:
+>>> op rs rt rd shamt
+Sendo:
+- op: opcode (operação básica da instrução);
+- rs: primeiro registrador fonte;
+- rt: segundo registrador fonte;
+- rd: registrador destino;
+- shamt: "shift amount" (para instruções de deslocamento).
+
+
+C- os modos de endereçamento de operandos
+- Imediato
+- Registrador
+
+Exemplo endereçamento imediato: 
+      add R4, 3, R4, 0
+   equivalente a 
+      R[4] <- R[4]+3
+
+Exemplo endereçamento registrador:
+      add R4, R3, R4
+   equivalente a
+      R[4] <- R[4]+R[3]
+
+
+
+D- o tamanho do banco de registradores
+O banco de registradores do MIPS é composto por 32 registradores.
+Optamos por manter essa quantidade.
+
+
+E- o tamanho das memórias de instruções e de dados
+As instruções e os dados serão guardados em vetores com 1000 posições de memória.
+Cada posição armazena uma palavra de 32bits (definido em A).
+
+
+F- o número e tipos de barramentos da parte operativa
+- NÃO DEFINIDO
+
+
+
+
+http://www.ic.unicamp.br/~pannain/mc542/aulas/ch3_arq.pdf
+https://www2.pcs.usp.br/~labdig/pdffiles_2014/banco-registradores.pdf
+http://www.di.ufpb.br/raimundo/Hierarquia/Registradores.html
+https://pt.wikipedia.org/wiki/Conjunto_de_instru%C3%A7%C3%B5es#Partes_de_uma_instru.C3.A7.C3.A3o
+http://www.dcc.ufrj.br/~gabriel/arqcomp2/MIPS64.pdf

@@ -1,0 +1,50 @@
+package componentes;
+
+import controle.Canal;
+import controle.Port;
+
+/*
+ * Classe referente ao componente "Contador de Programa"
+ * Contador de programa é o responsável por conter o endereço da próxima instrução
+ * a ser buscada na memória para execução
+ */
+public class Pc {
+
+	// Portas de conexao
+	Port input, output;
+	
+	// Valor de instrucao do contador
+	int endProxInst;
+	
+	
+	// construtor
+	public Pc( Port input, Port output ){
+		this.input = input;
+		this.output = output;
+		endProxInst = 0;
+	}
+	
+	
+	// funcao com logica de execucao do componente
+	public void execute(  ){
+		
+		// confirma se ha sinal na porta de entrada
+		if( input.getSignal().isEvent() == true ){
+			// muda para o prox endereco de instrucao
+			endProxInst += 1;
+			System.out.println(">>> PC com sinal de entrada. Prox endereco de instrucao selecionado.");
+			System.out.println(">>> Proximo endereco: "+endProxInst);
+			// escreve dado no sinal
+			output.getSignal().write(endProxInst+"");
+			System.out.println(">>> Endereco de instrucao enviado pelo sinal");
+			// diz que quer enviar algo por esse sinal
+			input.setEvent(false);
+			output.setEvent(true);
+
+
+		}
+		
+	}
+	
+	
+}
