@@ -52,7 +52,7 @@ public class Port
 	}
 	
 	/**
-	 * Escreve o seu dado em um canal que está
+	 * Escreve o seu dado em um canal que estï¿½
 	 * conectada.
 	 */
 	public void write( Canal canal )

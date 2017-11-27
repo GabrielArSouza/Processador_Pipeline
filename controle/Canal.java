@@ -1,5 +1,4 @@
 package controle;
-
 public class Canal 
 {
 	private boolean status;
@@ -26,7 +25,7 @@ public class Canal
 	/**
 	 * Escreve um dado no canal e ativa o status dele
 	 * para ocupado ( status == true ), caso o canal
-	 * j· esteja ocupado, nada È feito.
+	 * j√° esteja ocupado, nada √© feito.
 	 * @param dado o sinal enviado para o canal
 	 */
 	public void write( Signal dado )

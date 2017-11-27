@@ -34,30 +34,30 @@ public class Main {
 		/*
 		 * CRIANDO PORTAS
 		 */
-		// conecta a saída de PC na entrada de INSTRUCTION_MEMORY
+		// conecta a saï¿½da de PC na entrada de INSTRUCTION_MEMORY
 		Port output_pc  = new Port(signal_pc_instMemory);
 		Port input_instMemory = new Port(signal_pc_instMemory);
 		
-		// conecta a saída de INSTRUCTION_MEMORY na entrada de REGISTERS_GROUP
+		// conecta a saï¿½da de INSTRUCTION_MEMORY na entrada de REGISTERS_GROUP
 		Port output_instMemory  = new Port(signal_instMemory_regsGroup);
 		Port input_1_regsGroup = new Port(signal_instMemory_regsGroup);
 				
 	
-		// conecta a saída de REGISTERS_GROUP na entrada de ALU
+		// conecta a saï¿½da de REGISTERS_GROUP na entrada de ALU
 		Port output_1_regsGroup = new Port(signal_regsGroup_ula_1);
 		Port output_2_regsGroup = new Port(signal_regsGroup_ula_2);
 		Port input_1_ula = new Port(signal_regsGroup_ula_1);
 		Port input_2_ula = new Port(signal_regsGroup_ula_2);
 		
-		// conecta a saída de REGISTERS_GROUP na entrada de DATA_MEMORY
+		// conecta a saï¿½da de REGISTERS_GROUP na entrada de DATA_MEMORY
 		Port output_3_regsGroup  = new Port(signal_regsGroup_dataMemory);
 		Port input_1_dataMemory = new Port(signal_regsGroup_dataMemory);
 		
-		// conecta a saída de ULA na entrada de DATA_MEMORY
+		// conecta a saï¿½da de ULA na entrada de DATA_MEMORY
 		Port output_1_ula  = new Port(signal_ula_dataMemory);
 		Port input_2_dataMemory = new Port(signal_ula_dataMemory);
 					
-		// conecta a saída de ULA na entrada de REGISTERS_GROUP
+		// conecta a saï¿½da de ULA na entrada de REGISTERS_GROUP
 		Port output_2_ula  = new Port(signal_ula_regsGroup);
 		Port input_2_regsGroup = new Port(signal_ula_regsGroup);
 			

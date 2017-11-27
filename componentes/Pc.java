@@ -5,8 +5,8 @@ import controle.Port;
 
 /*
  * Classe referente ao componente "Contador de Programa"
- * Contador de programa é o responsável por conter o endereço da próxima instrução
- * a ser buscada na memória para execução
+ * Contador de programa ï¿½ o responsï¿½vel por conter o endereï¿½o da prï¿½xima instruï¿½ï¿½o
+ * a ser buscada na memï¿½ria para execuï¿½ï¿½o
  */
 public class Pc {
 

@@ -5,7 +5,7 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 import controle.Port;
 
 /*
- * Classe referente ao componente "Memoria de Instruçao"
+ * Classe referente ao componente "Memoria de Instruï¿½ao"
  * Contem as instrucoes armazenadas no sistema, que estao na "fila" para serem executadas
  */
 public class InstructionMemory {
