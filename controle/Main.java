@@ -29,11 +29,9 @@ public class Main {
 		Canal canal_ula_dataMemory = new Canal(); 
 		// sinal entre ULA e REGISTERS_GROUP
 		Canal canal_ula_regsGroup = new Canal(); 
-				
-	
-		/*Signal signal_ula_regsGroup = new Signal(); 							
+										
 		// sinal entre DATA_MEMORY e REGISTERS_GROUP
-		Signal signal_dataMemory_regsGroup = new Signal(); */
+		Canal canal_dataMemory_regsGroup = new Canal();
 		
 		/*
 		 * CRIANDO PORTAS
@@ -64,25 +62,19 @@ public class Main {
 		// conecta a sa�da de ULA na entrada de REGISTERS_GROUP
 		Port output_2_ula  = new Port(canal_ula_regsGroup);
 		Port input_2_regsGroup = new Port(canal_ula_regsGroup);
-			
+	
+		// conecta a saida de DataMemory com entrada de RegsGroup
+		Port output_1_dataMemory = new Port(canal_dataMemory_regsGroup);
+		Port input_3_regsGroup = new Port(canal_dataMemory_regsGroup);
 		
 		// pra facilidar execucao
 		Signal initial_teste = new Signal(true);
 		Port input_pc = new Port(new Canal(initial_teste));
 		Port output_dataMemory = new Port(new Canal(new Signal(false)));
-		/*
-    Port output_2_ula  = new Port(signal_ula_regsGroup);
-		Port input_2_regsGroup = new Port(signal_ula_regsGroup);
-		
-		// conecta a saida de DataMemory com entrada de RegsGroup
-		Port output_1_dataMemory = new Port(signal_dataMemory_regsGroup);
-		Port input_3_regsGroup = new Port(signal_dataMemory_regsGroup);
 		
 		// pra facilidar execucao
-		Signal initial_teste = new Signal();
-		Port input_pc = new Port(initial_teste);
 		Port output_2_dataMemory = new Port(initial_teste);
-		Port output_4_regsGroup = new Port(initial_teste);*/
+		Port output_4_regsGroup = new Port(initial_teste);
 		
 		/*
 		 * INSTANCIANDO TODOS OS COMPONENTES
