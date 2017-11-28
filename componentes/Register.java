@@ -1,5 +1,8 @@
 package componentes;
 
+import controle.Port;
+import controle.Signal;
+
 /*
  * Classe referente ao componente "Registrador"
  * Antes que a instru��o seja interpretada e as unidades da CPU sejam acionadas, 
@@ -9,4 +12,19 @@ package componentes;
  */
 public class Register {
 
+	String data;
+	
+	public Register() {
+		data = "";
+	}
+	
+	public void write( String data ){
+		this.data = data;
+	}
+	
+	public String read(){
+		return data;
+	}
+	
+	
 }

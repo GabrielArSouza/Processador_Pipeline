@@ -28,7 +28,9 @@ public class Main {
 		// sinal entre ULA e DATA_MEMORY
 		Signal signal_ula_dataMemory = new Signal(); 
 		// sinal entre ULA e REGISTERS_GROUP
-		Signal signal_ula_regsGroup = new Signal(); 
+		Signal signal_ula_regsGroup = new Signal(); 							
+		// sinal entre DATA_MEMORY e REGISTERS_GROUP
+		Signal signal_dataMemory_regsGroup = new Signal(); 
 													
 		
 		/*
@@ -60,12 +62,16 @@ public class Main {
 		// conecta a sa�da de ULA na entrada de REGISTERS_GROUP
 		Port output_2_ula  = new Port(signal_ula_regsGroup);
 		Port input_2_regsGroup = new Port(signal_ula_regsGroup);
-			
+		
+		// conecta a saida de DataMemory com entrada de RegsGroup
+		Port output_1_dataMemory = new Port(signal_dataMemory_regsGroup);
+		Port input_3_regsGroup = new Port(signal_dataMemory_regsGroup);
 		
 		// pra facilidar execucao
 		Signal initial_teste = new Signal();
 		Port input_pc = new Port(initial_teste);
-		Port output_dataMemory = new Port(initial_teste);
+		Port output_2_dataMemory = new Port(initial_teste);
+		Port output_4_regsGroup = new Port(initial_teste);
 		
 		/*
 		 * INSTANCIANDO TODOS OS COMPONENTES
@@ -75,11 +81,11 @@ public class Main {
 		// instancia componente InstructionMemory
 		InstructionMemory instMemory = new InstructionMemory( input_instMemory, output_instMemory );
 		// instancia componente registerGroup
-		RegistersGroup regsGroup = new RegistersGroup( input_1_regsGroup, input_2_regsGroup, output_1_regsGroup, output_2_regsGroup );
+		RegistersGroup regsGroup = new RegistersGroup( input_1_regsGroup, input_2_regsGroup,  input_3_regsGroup, output_1_regsGroup, output_2_regsGroup, output_3_regsGroup, output_4_regsGroup );
 		// instancia componente ALU
 		Alu ula = new Alu( input_1_ula, input_2_ula, output_1_ula, output_2_ula );
 		// instancia componente DataMemory
-		DataMemory dataMemory = new DataMemory(input_1_dataMemory, input_2_dataMemory);
+		DataMemory dataMemory = new DataMemory(input_1_dataMemory, input_2_dataMemory, output_1_dataMemory, output_2_dataMemory);
 								
 		
 		/*
@@ -89,6 +95,8 @@ public class Main {
 		input_pc.setEvent(true);
 		// CARREGA MEMORIA DE INSTRUCOES
 		instMemory.loadMemory();
+		// CARREGA MEMORIA DE DADOS
+		dataMemory.loadMemory();
 		
 		// SIMULA CICLO DE CLOCK COM O WHILE, ENQUANTO NAO TIVER SAIDA PELA MEMORIA DE DADOS
 		do{
@@ -98,12 +106,17 @@ public class Main {
 				pc.execute();
 			} else if( input_instMemory.getEvent() == true ){
 				instMemory.execute();
-				output_dataMemory.setEvent(true);
-			} 
+			} else if( input_1_regsGroup.getEvent() == true ){
+				regsGroup.execute();
+			} else if( input_1_dataMemory.getEvent() == true ){
+				dataMemory.execute();
+			} else if( input_3_regsGroup.getEvent() == true ){
+				regsGroup.execute();
+				output_2_dataMemory.setEvent(true); // parar simulacao
+			}
 			
 			
-			
-		} while( !(output_dataMemory.getEvent()) );
+		} while( !(output_2_dataMemory.getEvent()) );
 		
 		
 		
