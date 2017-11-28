@@ -34,7 +34,6 @@ public class Decoder {
 		System.out.println("Registrador destino: " +inst[3]);
 
 		return inst;
-			
 		
 	}
 		

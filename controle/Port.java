@@ -3,6 +3,7 @@ package controle;
 public class Port 
 {
 	private Signal signal;
+	private Canal canal;
 	
 	/**
 	 * Construtor para o objeto
@@ -11,6 +12,17 @@ public class Port
 	public Port (Signal signal)
 	{
 		this.signal = signal;
+	}
+	
+	/**
+	 * Construtor de porta recebendo o canal
+	 * associado a ela
+	 * @param canal  o canal
+	 */
+	public Port (Canal canal)
+	{
+		this.signal = null;
+		this.canal = canal;
 	}
 	
 	/**
@@ -29,6 +41,10 @@ public class Port
 		this.signal = signal;
 	}
 	
+	/**
+	 * Pega o status do evento associado a porta*
+	 * @return o evento true ou false
+	 */
 	public boolean getEvent(){
 		return signal.isEvent();
 	}
@@ -43,21 +59,44 @@ public class Port
 	}
 	
 	/**
+	 * @return O canal associado a porta
+	 */
+	public Canal getCanal()
+	{
+		return canal;
+	}
+
+	/**
+	 * Atribui um canal a porta
+	 * @param canal  o canal
+	 */
+	public void setCanal(Canal canal)
+	{
+		this.canal = canal;
+	}
+
+	/**
 	 * Ler o dado presente no canal que conecta
 	 * a porta.
 	 */
-	public void read( Canal canal )
+	public Signal read( )
 	{
-		signal = canal.read();
+		if ( canal != null )
+			signal = canal.read();
+		return signal;		
 	}
 	
 	/**
 	 * Escreve o seu dado em um canal que est�
 	 * conectada.
 	 */
-	public void write( Canal canal )
+	public void write( )
 	{
-		canal.write(signal);
+		if (canal != null)
+		{
+			canal.write(signal);
+			this.signal = null;
+		}
 	}
 		
 }

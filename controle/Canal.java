@@ -13,6 +13,12 @@ public class Canal
 		dado = new Signal();
 	}
 	
+	public Canal (Signal signal)
+	{
+		dado = signal;
+		status = true;
+	}
+	
 	/**
 	 * Pega o status atual do canal
 	 * @return true se canal ocupado, falso caso
@@ -44,8 +50,13 @@ public class Canal
 	 */
 	public Signal read()
 	{
-		this.status = false;
-		return dado;
+		if ( status )
+		{
+			this.status = false;
+			return dado;
+		}
+		return null;
+
 	}
 	
 }
