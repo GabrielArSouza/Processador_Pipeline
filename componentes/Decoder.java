@@ -71,19 +71,18 @@ public class Decoder {
 	 */
 	public void instAdd(){
 		
-		System.out.println(">>> A instrucao atual é um ADD");
+		System.out.println(">>> A instrucao atual Ã© um ADD");
 		
 		// stub
 		
 	}
 	
-
 	/*
 	 * Implementacao da logica e procedimentos do opcode "SUB"
 	 */
 	public void instSub(){
 		
-		System.out.println(">>> A instrucao atual é um SUB");
+		System.out.println(">>> A instrucao atual Ã© um SUB");
 
 		// stub
 		
@@ -94,7 +93,7 @@ public class Decoder {
 	 */
 	public void instOr(){
 		
-		System.out.println(">>> A instrucao atual é um OR");
+		System.out.println(">>> A instrucao atual Ã© um OR");
 
 		// stub
 		
@@ -105,7 +104,7 @@ public class Decoder {
 	 */
 	public void instAnd(){
 		
-		System.out.println(">>> A instrucao atual é um AND");
+		System.out.println(">>> A instrucao atual Ã© um AND");
 
 		// stub
 		
@@ -116,7 +115,7 @@ public class Decoder {
 	 */
 	public void instXor(){
 		
-		System.out.println(">>> A instrucao atual é um XOR");
+		System.out.println(">>> A instrucao atual Ã© um XOR");
 
 		// stub
 		
@@ -127,7 +126,7 @@ public class Decoder {
 	 */
 	public void instNot(){
 		
-		System.out.println(">>> A instrucao atual é um NOT");
+		System.out.println(">>> A instrucao atual Ã© um NOT");
 
 		// stub
 		
@@ -138,7 +137,7 @@ public class Decoder {
 	 */
 	public void instCmp(){
 		
-		System.out.println(">>> A instrucao atual é um CMP");
+		System.out.println(">>> A instrucao atual Ã© um CMP");
 
 		// stub
 		
@@ -149,7 +148,7 @@ public class Decoder {
 	 */
 	public void instLw(){
 		
-		System.out.println(">>> A instrucao atual é um LW");
+		System.out.println(">>> A instrucao atual Ã© um LW");
 		
 		// identifica registrador destino
 		String regDestino = inst[1];
@@ -174,7 +173,7 @@ public class Decoder {
 	 */
 	public void instSt(){
 		
-		System.out.println("A instrucao atual é um ST");
+		System.out.println("A instrucao atual Ã© um ST");
 		
 		// stub
 		

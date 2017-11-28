@@ -2,6 +2,7 @@ package componentes;
 
 import controle.Canal;
 import controle.Port;
+import controle.Signal;
 
 /*
  * Classe referente ao componente "Contador de Programa"
@@ -29,19 +30,24 @@ public class Pc {
 	public void execute(  ){
 		
 		// confirma se ha sinal na porta de entrada
-		if( input.getSignal().isEvent() == true ){
+		Signal signal = input.getSignal();
+		if( signal != null && signal.isEvent() == true ){
 			// muda para o prox endereco de instrucao
 			endProxInst += 1;
 			System.out.println(">>> PC com sinal de entrada. Prox endereco de instrucao selecionado.");
 			System.out.println(">>> Proximo endereco: "+endProxInst);
 			// escreve dado no sinal
-			output.getSignal().write(endProxInst+"");
+			signal.write(endProxInst+"");
 			System.out.println(">>> Endereco de instrucao enviado pelo sinal");
-			// diz que quer enviar algo por esse sinal
-			input.setEvent(false);
-			output.setEvent(true);
-
-
+			
+			// diz que quer enviar algo por essa porta
+			input.setSignal(null);
+			signal.setEvent(true);
+			output.setSignal(signal);
+			
+			//escrever no canal
+			output.write();
+			System.out.println(">>> Escreveu sinal alterado no canal\n");
 		}
 		
 	}

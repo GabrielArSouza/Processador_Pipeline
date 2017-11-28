@@ -11,56 +11,67 @@ public class Main {
 
 	public static void main(String[] args) {
 
-
+		
 		/*
 		 * CRIANDO SINAIS
 		 */
-		// sinal entre PC e INSTRUCTION_MEMORY
-		Signal signal_pc_instMemory = new Signal(); 
+		// canal entre PC e INSTRUCTION_MEMORY
+		Canal canal_pc_instMemory = new Canal(); 
 		// sinal entre INSTRUCTION_MEMORY e DECODER
-		Signal signal_instMemory_regsGroup = new Signal(); 
+		Canal canal_instMemory_regsGroup = new Canal(); 
 		// sinal entre REGISTERS_GROUP e ULA (PORTA 1 DA ULA)
-		Signal signal_regsGroup_ula_1 = new Signal(); 
+		Canal canal_regsGroup_ula_1 = new Canal(); 
 		// sinal entre REGISTERS_GROUP e ULA (PORTA 2 DA ULA)
-		Signal signal_regsGroup_ula_2 = new Signal(); 
+		Canal canal_regsGroup_ula_2 = new Canal(); 
 		// sinal entre REGISTERS_GROUP e DATA_MEMORY
-		Signal signal_regsGroup_dataMemory = new Signal(); 
+		Canal canal_regsGroup_dataMemory = new Canal(); 
 		// sinal entre ULA e DATA_MEMORY
-		Signal signal_ula_dataMemory = new Signal(); 
+		Canal canal_ula_dataMemory = new Canal(); 
 		// sinal entre ULA e REGISTERS_GROUP
-		Signal signal_ula_regsGroup = new Signal(); 							
+		Canal canal_ula_regsGroup = new Canal(); 
+				
+	
+		/*Signal signal_ula_regsGroup = new Signal(); 							
 		// sinal entre DATA_MEMORY e REGISTERS_GROUP
-		Signal signal_dataMemory_regsGroup = new Signal(); 
-													
+		Signal signal_dataMemory_regsGroup = new Signal(); */
 		
 		/*
 		 * CRIANDO PORTAS
 		 */
 		// conecta a sa�da de PC na entrada de INSTRUCTION_MEMORY
-		Port output_pc  = new Port(signal_pc_instMemory);
-		Port input_instMemory = new Port(signal_pc_instMemory);
+		Port output_pc  = new Port(canal_pc_instMemory);
+		Port input_instMemory = new Port(canal_pc_instMemory);
 		
 		// conecta a sa�da de INSTRUCTION_MEMORY na entrada de REGISTERS_GROUP
-		Port output_instMemory  = new Port(signal_instMemory_regsGroup);
-		Port input_1_regsGroup = new Port(signal_instMemory_regsGroup);
+		Port output_instMemory  = new Port(canal_instMemory_regsGroup);
+		Port input_1_regsGroup = new Port(canal_instMemory_regsGroup);
 				
 	
 		// conecta a sa�da de REGISTERS_GROUP na entrada de ALU
-		Port output_1_regsGroup = new Port(signal_regsGroup_ula_1);
-		Port output_2_regsGroup = new Port(signal_regsGroup_ula_2);
-		Port input_1_ula = new Port(signal_regsGroup_ula_1);
-		Port input_2_ula = new Port(signal_regsGroup_ula_2);
+		Port output_1_regsGroup = new Port(canal_regsGroup_ula_1);
+		Port output_2_regsGroup = new Port(canal_regsGroup_ula_2);
+		Port input_1_ula = new Port(canal_regsGroup_ula_1);
+		Port input_2_ula = new Port(canal_regsGroup_ula_2);
 		
 		// conecta a sa�da de REGISTERS_GROUP na entrada de DATA_MEMORY
-		Port output_3_regsGroup  = new Port(signal_regsGroup_dataMemory);
-		Port input_1_dataMemory = new Port(signal_regsGroup_dataMemory);
+		Port output_3_regsGroup  = new Port(canal_regsGroup_dataMemory);
+		Port input_1_dataMemory = new Port(canal_regsGroup_dataMemory);
 		
 		// conecta a sa�da de ULA na entrada de DATA_MEMORY
-		Port output_1_ula  = new Port(signal_ula_dataMemory);
-		Port input_2_dataMemory = new Port(signal_ula_dataMemory);
+		Port output_1_ula  = new Port(canal_ula_dataMemory);
+		Port input_2_dataMemory = new Port(canal_ula_dataMemory);
 					
 		// conecta a sa�da de ULA na entrada de REGISTERS_GROUP
-		Port output_2_ula  = new Port(signal_ula_regsGroup);
+		Port output_2_ula  = new Port(canal_ula_regsGroup);
+		Port input_2_regsGroup = new Port(canal_ula_regsGroup);
+			
+		
+		// pra facilidar execucao
+		Signal initial_teste = new Signal(true);
+		Port input_pc = new Port(new Canal(initial_teste));
+		Port output_dataMemory = new Port(new Canal(new Signal(false)));
+		/*
+    Port output_2_ula  = new Port(signal_ula_regsGroup);
 		Port input_2_regsGroup = new Port(signal_ula_regsGroup);
 		
 		// conecta a saida de DataMemory com entrada de RegsGroup
@@ -71,7 +82,7 @@ public class Main {
 		Signal initial_teste = new Signal();
 		Port input_pc = new Port(initial_teste);
 		Port output_2_dataMemory = new Port(initial_teste);
-		Port output_4_regsGroup = new Port(initial_teste);
+		Port output_4_regsGroup = new Port(initial_teste);*/
 		
 		/*
 		 * INSTANCIANDO TODOS OS COMPONENTES
@@ -91,8 +102,7 @@ public class Main {
 		/*
 		 * EXECUCAO COM MECANISMO DE SIMULACAO DEDICADO
 		 */
-		// INICIALMENTE, SET O SINAL DA ENTRADA DE PC 
-		input_pc.setEvent(true);
+		
 		// CARREGA MEMORIA DE INSTRUCOES
 		instMemory.loadMemory();
 		// CARREGA MEMORIA DE DADOS
@@ -102,11 +112,21 @@ public class Main {
 		do{
 			
 			// A CADA CICLO DE CLOCK FICAR VERIFICANDO SE CADA PORTA DESSAS TEM UM SINAL
-			if( input_pc.getEvent() == true ){
+			if( input_pc.read() != null )
+			{
+				System.out.println("input_pc.read() ok");
 				pc.execute();
-			} else if( input_instMemory.getEvent() == true ){
+			}
+			else if( input_instMemory.read() != null && input_instMemory.getEvent() )
+			{
+				System.out.println("Chamou o instMem\n");
 				instMemory.execute();
-			} else if( input_1_regsGroup.getEvent() == true ){
+				output_dataMemory.setEvent(true);
+			} 	
+			
+		} while( output_dataMemory.read() != null && !output_dataMemory.getEvent());
+
+			/*} else if( input_1_regsGroup.getEvent() == true ){
 				regsGroup.execute();
 			} else if( input_1_dataMemory.getEvent() == true ){
 				dataMemory.execute();
@@ -117,9 +137,10 @@ public class Main {
 			
 			
 		} while( !(output_2_dataMemory.getEvent()) );
+		*/
 		
 		
-		
+		System.out.println("Terminou");
 		// QUANDO TIVER SINAL, CHAMA FUNCAO DE EXECUTAR
 		// EXECUTAR RETORNA SEMPRE UM SINAL OU VALOR PROX PROXIMO CICLO
 

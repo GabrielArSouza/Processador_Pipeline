@@ -10,6 +10,11 @@ public class Signal
 		event = false;
 	}
 	
+	public Signal ( boolean event)
+	{
+		this.event = event;
+	}
+	
 	/**
 	 * Retorna o evento do sinal
 	 * @return true ou false;
