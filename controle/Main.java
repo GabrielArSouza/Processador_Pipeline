@@ -23,6 +23,8 @@ public class Main {
 		Canal canal_regsGroup_ula_1 = new Canal(); 
 		// sinal entre REGISTERS_GROUP e ULA (PORTA 2 DA ULA)
 		Canal canal_regsGroup_ula_2 = new Canal(); 
+		// sinal entre REGISTERS_GROUP e ULA (PORTA 3 DA ULA)
+		Canal canal_regsGroup_ula_3 = new Canal(); 
 		// sinal entre REGISTERS_GROUP e DATA_MEMORY
 		Canal canal_regsGroup_dataMemory = new Canal(); 
 		// sinal entre ULA e DATA_MEMORY
@@ -46,10 +48,12 @@ public class Main {
 				
 	
 		// conecta a sa�da de REGISTERS_GROUP na entrada de ALU
-		Port output_1_regsGroup = new Port(canal_regsGroup_ula_1);
-		Port output_2_regsGroup = new Port(canal_regsGroup_ula_2);
+		Port output_1_regsGroup = new Port(canal_regsGroup_ula_1); //operando
+		Port output_2_regsGroup = new Port(canal_regsGroup_ula_2); //operando
+		Port output_5_regsGroup  = new Port(canal_regsGroup_ula_3); //tipo operação
 		Port input_1_ula = new Port(canal_regsGroup_ula_1);
 		Port input_2_ula = new Port(canal_regsGroup_ula_2);
+		Port input_3_ula = new Port(canal_regsGroup_ula_3); //operação
 		
 		// conecta a sa�da de REGISTERS_GROUP na entrada de DATA_MEMORY
 		Port output_3_regsGroup  = new Port(canal_regsGroup_dataMemory);
@@ -66,6 +70,7 @@ public class Main {
 		// conecta a saida de DataMemory com entrada de RegsGroup
 		Port output_1_dataMemory = new Port(canal_dataMemory_regsGroup);
 		Port input_3_regsGroup = new Port(canal_dataMemory_regsGroup);
+		
 		
 		// pra facilidar execucao
 		Signal initial_teste = new Signal(true);
@@ -84,9 +89,9 @@ public class Main {
 		// instancia componente InstructionMemory
 		InstructionMemory instMemory = new InstructionMemory( input_instMemory, output_instMemory );
 		// instancia componente registerGroup
-		RegistersGroup regsGroup = new RegistersGroup( input_1_regsGroup, input_2_regsGroup,  input_3_regsGroup, output_1_regsGroup, output_2_regsGroup, output_3_regsGroup, output_4_regsGroup );
+		RegistersGroup regsGroup = new RegistersGroup( input_1_regsGroup, input_2_regsGroup,  input_3_regsGroup, output_1_regsGroup, output_2_regsGroup, output_3_regsGroup, output_4_regsGroup, output_5_regsGroup );
 		// instancia componente ALU
-		Alu ula = new Alu( input_1_ula, input_2_ula, output_1_ula, output_2_ula );
+		Alu ula = new Alu( input_1_ula, input_2_ula, input_3_ula, output_1_ula, output_2_ula );
 		// instancia componente DataMemory
 		DataMemory dataMemory = new DataMemory(input_1_dataMemory, input_2_dataMemory, output_1_dataMemory, output_2_dataMemory);
 								
