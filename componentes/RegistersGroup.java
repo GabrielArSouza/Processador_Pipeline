@@ -15,6 +15,7 @@ public class RegistersGroup {
 	Port output1, output2; // dados que vao para ULA
 	Port output3; // dado que vai para DataMemory
 	Port output4; // manda sinal para PC
+	Port output5; // dado que sinaliza operação da ULA
 	
 	// vetor de registradores
 	Register[] registers;
