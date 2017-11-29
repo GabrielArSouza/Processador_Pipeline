@@ -1,6 +1,7 @@
 package componentes;
 
 import controle.Port;
+import controle.Signal;
 
 /*
  * Classe referente ao componente "Memoria de Dados"
@@ -47,7 +48,8 @@ public class DataMemory {
 	public void execute(  ){
 	
 		// confirma se ha sinal na porta de entrada vindo de regsGroup
-		if( input1.getSignal().isEvent() == true ){
+		Signal signal = input1.getSignal();
+		if( signal != null && signal.isEvent() ){
 			
 			// recupera a informacao armazenada no sinal
 			int endDado = Integer.parseInt(input1.getSignal().read());
@@ -57,10 +59,12 @@ public class DataMemory {
 			System.out.println(">>> Dado selecionado eh = " +dado);
 			
 			// escreve dado no sinal que vai para regsGroup
-			output1.getSignal().write(dado+"");
+			signal.write(dado+"");
 			// diz que quer enviar algo por esse sinal
 			input1.setEvent(false);
-			output1.setEvent(true);
+			signal.setEvent(true);
+			output1.setSignal(signal);
+			output1.write();
 			
 			System.out.println(">>> Dado enviado para RegsGroup");
 			

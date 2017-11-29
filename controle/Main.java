@@ -73,8 +73,8 @@ public class Main {
 		Port output_dataMemory = new Port(new Canal(new Signal(false)));
 		
 		// pra facilidar execucao
-		Port output_2_dataMemory = new Port(initial_teste);
-		Port output_4_regsGroup = new Port(initial_teste);
+		Port output_2_dataMemory = new Port(new Canal(initial_teste));
+		Port output_4_regsGroup = new Port(new Canal(initial_teste));
 		
 		/*
 		 * INSTANCIANDO TODOS OS COMPONENTES
@@ -100,6 +100,8 @@ public class Main {
 		// CARREGA MEMORIA DE DADOS
 		dataMemory.loadMemory();
 		
+		//carregar controlador de ciclo
+		output_2_dataMemory.read();
 		// SIMULA CICLO DE CLOCK COM O WHILE, ENQUANTO NAO TIVER SAIDA PELA MEMORIA DE DADOS
 		do{
 			
@@ -113,24 +115,28 @@ public class Main {
 			{
 				System.out.println("Chamou o instMem\n");
 				instMemory.execute();
-				output_dataMemory.setEvent(true);
-			} 	
-			
-		} while( output_dataMemory.read() != null && !output_dataMemory.getEvent());
-
-			/*} else if( input_1_regsGroup.getEvent() == true ){
-				regsGroup.execute();
-			} else if( input_1_dataMemory.getEvent() == true ){
-				dataMemory.execute();
-			} else if( input_3_regsGroup.getEvent() == true ){
-				regsGroup.execute();
-				output_2_dataMemory.setEvent(true); // parar simulacao
+				//output_2_dataMemory.setEvent(false);
 			}
+			else if ( input_1_regsGroup.read() != null && input_1_regsGroup.getEvent())
+			{
+				System.out.println("Chamou o regsGroup\n");
+				regsGroup.execute();
+				output_2_dataMemory.setEvent(true);
+			}
+			else if (input_1_dataMemory.read() != null && input_1_dataMemory.getEvent())
+			{
+				System.out.println("Chamou o dataMemory\n");
+				dataMemory.execute();
+			}
+			else if (input_3_regsGroup.read() != null && input_3_regsGroup.getEvent())
+			{
+				System.out.println("chamou o regsGroups input 3\n");
+				regsGroup.execute();
+				output_2_dataMemory.setEvent(false); // parar simulacao
+			}				
 			
-			
-		} while( !(output_2_dataMemory.getEvent()) );
-		*/
-		
+		} while( output_2_dataMemory.getEvent());
+	
 		
 		System.out.println("Terminou");
 		// QUANDO TIVER SINAL, CHAMA FUNCAO DE EXECUTAR
