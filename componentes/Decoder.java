@@ -74,7 +74,39 @@ public class Decoder {
 		
 		System.out.println(">>> A instrucao atual é um ADD");
 		
-		// stub
+		// identifica registrador destino
+		String regDestino = inst[1];
+		regsGroup.regDestino = regDestino;
+		System.out.println(">>> Registrador destino: " +inst[1] );
+		
+		// identifica registradores fonte
+		int indiceOp1 = Integer.parseInt(inst[1].substring(1));
+		int indiceOp2 = Integer.parseInt(inst[2].substring(1));
+		
+		String op1 = regsGroup.registers[indiceOp1].data;
+		String op2 = regsGroup.registers[indiceOp2].data;
+		System.out.println(">>> Primeiro registrador fonte: " +inst[1] );
+		System.out.println(">>> Primeiro operando fonte: " + op1);
+		System.out.println(">>> Segundo registrador fonte: " +inst[2] );
+		System.out.println(">>> Segundo operando fonte: " + op2);
+		
+		Signal signalOp1 = new Signal(op1);
+		Signal signalOp2 = new Signal(op2);
+		Signal signal3 = new Signal(inst[0]);
+		
+		System.out.println(">>> Envia dados para ULA");
+		// diz que quer enviar algo por esse sinal
+		regsGroup.input1.setEvent(false);
+		signalOp1.setEvent(true);
+		signalOp2.setEvent(true);
+		signal3.setEvent(true);
+		regsGroup.output1.setSignal(signalOp1);
+		regsGroup.output1.write();
+		regsGroup.output2.setSignal(signalOp2);
+		regsGroup.output2.write();
+		// escreve tipo da operação
+		regsGroup.output5.setSignal(signal3);
+		regsGroup.output3.write();
 		
 	}
 	
@@ -107,7 +139,7 @@ public class Decoder {
 		
 		System.out.println(">>> A instrucao atual é um AND");
 
-		// stub
+
 		
 	}
 	
