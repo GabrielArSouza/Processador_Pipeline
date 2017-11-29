@@ -31,7 +31,7 @@ public class Pc {
 		
 		// confirma se ha sinal na porta de entrada
 		Signal signal = input.getSignal();
-		if( signal != null && signal.isEvent() == true ){
+		if( signal != null && signal.isEvent() ){
 			// muda para o prox endereco de instrucao
 			endProxInst += 1;
 			System.out.println(">>> PC com sinal de entrada. Prox endereco de instrucao selecionado.");

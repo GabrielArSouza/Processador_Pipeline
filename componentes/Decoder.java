@@ -1,6 +1,7 @@
 package componentes;
 
 import controle.Port;
+import controle.Signal;
 
 /*
  * Classe referente a um componente decodificar
@@ -159,13 +160,13 @@ public class Decoder {
 		int endMemFonte = Integer.parseInt(inst[2].substring(1));
 		System.out.println(">>> Endereco de memoria (fonte): " +inst[2]);
 		
-		
-		regsGroup.output3.getSignal().write(endMemFonte+"");
+		Signal signal = new Signal(endMemFonte+"");
 		System.out.println(">>> Endereco de instrucao sendo buscado em dataMemory pelo sinal");
 		// diz que quer enviar algo por esse sinal
 		regsGroup.input1.setEvent(false);
-		regsGroup.output3.setEvent(true);
-		
+		signal.setEvent(true);
+		regsGroup.output3.setSignal(signal);
+		regsGroup.output3.write();
 	}
 	
 	/*

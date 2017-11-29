@@ -15,6 +15,12 @@ public class Signal
 		this.event = event;
 	}
 	
+	public Signal ( String data)
+	{
+		this.event = true;
+		this.data = data;
+	}
+	
 	/**
 	 * Retorna o evento do sinal
 	 * @return true ou false;
@@ -37,9 +43,9 @@ public class Signal
 	/**
 	 * Escreve dado no sinal
 	 */
-	public void write( String signal )
+	public void write( String data )
 	{
-		data = signal;
+		this.data = data;
 	}
 	
 	/**
