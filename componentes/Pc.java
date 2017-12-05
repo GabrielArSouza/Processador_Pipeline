@@ -52,5 +52,9 @@ public class Pc {
 		
 	}
 	
+	public int getProxInst()
+	{
+		return endProxInst;
+	}
 	
 }

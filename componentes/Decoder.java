@@ -28,6 +28,8 @@ public class Decoder {
 		System.out.println(">>> Iniciando decodificacao");
 		
 		// separando instrucao pelo formato
+		if ( inst == null ) return;
+			 
 		inst = instrucao.split(" ");
 		
 		

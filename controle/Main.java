@@ -96,48 +96,112 @@ public class Main {
 		 */
 		
 		// CARREGA MEMORIA DE INSTRUCOES
-		instMemory.loadMemory();
+		int execPc = instMemory.loadMemory();
 		// CARREGA MEMORIA DE DADOS
 		dataMemory.loadMemory();
+		
+		
 		
 		//carregar controlador de ciclo
 		output_2_dataMemory.read();
 		// SIMULA CICLO DE CLOCK COM O WHILE, ENQUANTO NAO TIVER SAIDA PELA MEMORIA DE DADOS
+		int key=1;
+		boolean continua = true;
 		do{
-			
-			// A CADA CICLO DE CLOCK FICAR VERIFICANDO SE CADA PORTA DESSAS TEM UM SINAL
-			if( input_pc.read() != null )
-			{
+			System.out.println(">>> ESTÁGIO: " + key);
+			switch (key) {
+			case 1:
+				input_pc.read();
 				System.out.println("input_pc.read() ok");
 				pc.execute();
-			}
-			else if( input_instMemory.read() != null && input_instMemory.getEvent() )
-			{
+				key++;
+				break;
+				
+			case 2:
+				input_instMemory.read();
 				System.out.println("Chamou o instMem\n");
 				instMemory.execute();
-				//output_2_dataMemory.setEvent(false);
-			}
-			else if ( input_1_regsGroup.read() != null && input_1_regsGroup.getEvent())
-			{
+				
+				input_pc.setCanal(new Canal(new Signal(true)));
+				input_pc.read();
+				System.out.println("input_pc.read() ok");
+				pc.execute();
+				key++;
+				break;
+				
+			case 3:
+				input_1_regsGroup.read();
 				System.out.println("Chamou o regsGroup\n");
 				regsGroup.execute();
-				output_2_dataMemory.setEvent(true);
-			}
-			else if (input_1_dataMemory.read() != null && input_1_dataMemory.getEvent())
-			{
+				
+				input_instMemory.read();
+				System.out.println("Chamou o instMem\n");
+				instMemory.execute();
+				
+				input_pc.setCanal(new Canal(new Signal(true)));
+				input_pc.read();
+				System.out.println("input_pc.read() ok");
+				pc.execute();
+				key++;
+				break;
+				
+			case 4:
+				input_1_dataMemory.read();
 				System.out.println("Chamou o dataMemory\n");
 				dataMemory.execute();
-			}
-			else if (input_3_regsGroup.read() != null && input_3_regsGroup.getEvent())
-			{
+				
+				input_1_regsGroup.read();
+				System.out.println("Chamou o regsGroup\n");
+				regsGroup.execute();
+				
+				input_instMemory.read();
+				System.out.println("Chamou o instMem\n");
+				instMemory.execute();
+			
+				input_pc.setCanal(new Canal(new Signal(true)));
+				input_pc.read();
+				System.out.println("input_pc.read() ok");
+				pc.execute();
+				key++;
+				break;
+				
+			case 5:
+				continua = false;
+				
+				if (input_3_regsGroup.read() != null) continua = true;
 				System.out.println("chamou o regsGroups input 3\n");
 				regsGroup.execute();
-				output_2_dataMemory.setEvent(false); // parar simulacao
-			}				
-			
-		} while( output_2_dataMemory.getEvent());
+				
+				if (input_1_dataMemory.read() != null) continua = true;
+				System.out.println("Chamou o dataMemory\n");
+				dataMemory.execute();
+				
+				if (input_1_regsGroup.read() != null) continua = true;
+				System.out.println("Chamou o regsGroup\n");
+				regsGroup.execute();
+				
+				if (input_instMemory.read() != null) continua = true;
+				System.out.println("Chamou o instMem\n");
+				instMemory.execute();
+				
+				
+				System.out.println(pc.getProxInst());
+				System.out.println(execPc);
+				if( pc.getProxInst() < execPc ) {
+					input_pc.setCanal(new Canal(new Signal(true)));
+					input_pc.read();
+					System.out.println("input_pc.read() ok");
+					pc.execute();
+				}
+				
+				break;
+				
+			default:
+				break;
+			}
+
+		} while( continua );
 	
-		
 		System.out.println("Terminou");
 		// QUANDO TIVER SINAL, CHAMA FUNCAO DE EXECUTAR
 		// EXECUTAR RETORNA SEMPRE UM SINAL OU VALOR PROX PROXIMO CICLO
