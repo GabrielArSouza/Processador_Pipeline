@@ -31,13 +31,16 @@ public class InstructionMemory {
 	
 	public int loadMemory(  ){
 		
-		instrucoes[1] = "lw R1 $3 0 0";
-		instrucoes[2] = "lw R2 $4 0 0";
-		instrucoes[3] = "lw R4 $1 0 0";
-		instrucoes[4] = "add R3 R1 R2 0";
-		instrucoes[5] = "sw $6 R3 0 0";
+		instrucoes[1] = "lw R1 $1 0 0";
+		instrucoes[2] = "lw R2 $2 0 0";
+		instrucoes[3] = "lw R4 $3 0 0";
+		instrucoes[4] = "lw R5 $4 0 0";
+		instrucoes[5] = "lw R6 $5 0 0";
+		instrucoes[6] = "add R3 R1 R2 0";
+		instrucoes[7] = "sub R7 R5 R4 0";
+		instrucoes[8] = "st $6 R3 0 0";
 		
-		return 5;
+		return 8;
 		
 	}
 	

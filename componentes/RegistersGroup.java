@@ -1,5 +1,8 @@
 package componentes;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import controle.Port;
 import controle.Signal;
 
@@ -17,15 +20,17 @@ public class RegistersGroup {
 	Port output3; // dado que vai para DataMemory
 	Port output4; // manda sinal para PC
 	Port output5; // dado que sinaliza operação da ULA
-	
+	Port output6; // manda o resultado que deve ser salvo no dataMemory
+	Port output7; // manda qual endereço deve ser gravado
 	// vetor de registradores
 	Register[] registers;
 
-	String regDestino; // registrador destino (auxilio para LW)
-		
+	Deque<String> regDestino = new ArrayDeque<String>();
+
+	
 	// construtor
 	public RegistersGroup( Port input1, Port input2, Port input3, 
-			Port output1, Port output2, Port output3, Port output4, Port output5 ){
+			Port output1, Port output2, Port output3, Port output4, Port output5, Port output6, Port output7 ){
 		
 		this.input1 = input1;
 		this.input2 = input2;
@@ -35,6 +40,8 @@ public class RegistersGroup {
 		this.output3 = output3;
 		this.output4 = output4;
 		this.output5 = output5;
+		this.output6 = output6;
+		this.output7 = output7;
 		
 		registers = new Register[32]; // decisao de projeto
 		implantarRegistradores();
@@ -49,8 +56,17 @@ public class RegistersGroup {
 	// funcao com logica de execucao do componente
 	public void execute(){
 		
+
+		
 		// verifica se ha sinal na porta de entrada 1
 		Signal signal = input1.getSignal();
+		
+		// verifica se ha sinal na porta de entrada 3
+		Signal signal3 = input3.getSignal();
+		
+		// verifica se veio dado da ULA
+		Signal signal2 = input2.getSignal();
+				
 		if( signal != null && signal.isEvent() == true )
 		{
 			// recupera a informacao armazenada no sinal
@@ -63,23 +79,37 @@ public class RegistersGroup {
 
 		}
 		
-		// verifica se ha sinal na porta de entrada 3
-		signal = input3.getSignal();
-		if( signal != null && signal.isEvent() == true ){
+		else if( signal3 != null && signal3.isEvent() == true ) {
 			String valorDataMem = input3.getSignal().read();
-			System.out.println(">>> Chegou dado "+valorDataMem);
+			System.out.println(">>> Chegou dado no input 3: "+valorDataMem);
 			
 			System.out.println(">>> Colocando dado no registrador indicado");
-			System.out.println(">>> Registrador indicado: "+regDestino);
-			int indexRegDestino = Integer.parseInt(regDestino.substring(1));
+			
+			String register = regDestino.removeFirst();
+			System.out.println(">>> Registrador indicado: "+register);
+			int indexRegDestino = Integer.parseInt(register.substring(1));
 			Register reg = registers[indexRegDestino];
 			reg.write(valorDataMem);
 			System.out.println(">>> Dado escrito no registrador destino com index "+indexRegDestino );
 			
-			// busca proxima instrucao - envia sinal pra PC
+			// 
 			input3.setEvent(false);
-			signal.setEvent(true);
-			output4.setSignal(signal);
+			
+		}
+		else if( signal2 != null && signal2.isEvent()) {
+			System.out.println(">>> Chegou dados no input2. Veio da ULA.");
+			String resultadoOp = input2.getSignal().read();
+			System.out.println(">>> Resultado da operação: " + resultadoOp);
+			String register = regDestino.removeFirst();
+			System.out.println(">>> Registrador destino: "+register);
+			int indexRegDestino = Integer.parseInt(register.substring(1));
+			Register reg = registers[indexRegDestino];
+			reg.write( resultadoOp );
+			System.out.println(">>> Salvou " + resultadoOp + " no registrador de indice " + indexRegDestino);
+			
+			// 
+			input2.setEvent(false);
+			
 			
 		}
 		

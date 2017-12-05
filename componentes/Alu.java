@@ -21,9 +21,10 @@ public class Alu {
 	Port input1, input2;
 	// Tipo de operação
 	Port input3;
-	// Resultado da operação
+	// Signal que sinaliza que resultado é igual a 0
 	Port output1;
 	// Signal que sinaliza que resultado é igual a 0
+	// Resultado da operação
 	Port output2;
 
 
@@ -130,9 +131,9 @@ public class Alu {
 		s1.setEvent(true);
 		s2.setEvent(true);
 		
-		output1.setSignal(s1);
-		output1.write();
-		output2.setSignal(s2);
+		//output1.setSignal(s2);
+		//output1.write();
+		output2.setSignal(s1);
 		output2.write();
 	}
 
@@ -142,7 +143,27 @@ public class Alu {
 	 * @param op2
 	 */
 	public void sub(int op1, int op2) {
-		//stub
+		System.out.println(">>> Realiza SUB ");
+		Integer resultado = op1-op2;
+		
+		System.out.println(">>> Grava resultado no canal");
+		String signal1 = resultado.toString();
+		String signal2 = (resultado == 0)? "v" : "f";
+		
+		Signal s1 = new Signal(signal1);
+		Signal s2 = new Signal(signal2);
+		
+		// diz que quer enviar algo por esses sinais
+		input1.setEvent(false);
+		input2.setEvent(false);
+		input3.setEvent(false);
+		s1.setEvent(true);
+		s2.setEvent(true);
+		
+		//output1.setSignal(s2);
+		//output1.write();
+		output2.setSignal(s1);
+		output2.write();
 	}
 
 	/**
@@ -151,7 +172,27 @@ public class Alu {
 	 * @param op2
 	 */
 	public void and(int op1, int op2) {
-		//stub
+		System.out.println(">>> Realiza AND ");
+		Integer resultado = op1&op2;
+		
+		System.out.println(">>> Grava resultado no canal");
+		String signal1 = resultado.toString();
+		String signal2 = (resultado == 0)? "v" : "f";
+		
+		Signal s1 = new Signal(signal1);
+		Signal s2 = new Signal(signal2);
+		
+		// diz que quer enviar algo por esses sinais
+		input1.setEvent(false);
+		input2.setEvent(false);
+		input3.setEvent(false);
+		s1.setEvent(true);
+		s2.setEvent(true);
+		
+		//output1.setSignal(s2);
+		//output1.write();
+		output2.setSignal(s1);
+		output2.write();
 	}
 
 	/**
@@ -160,7 +201,27 @@ public class Alu {
 	 * @param op2
 	 */
 	public void or(int op1, int op2) {
-		//stub
+		System.out.println(">>> Realiza OR ");
+		Integer resultado = op1|op2;
+		
+		System.out.println(">>> Grava resultado no canal");
+		String signal1 = resultado.toString();
+		String signal2 = (resultado == 0)? "v" : "f";
+		
+		Signal s1 = new Signal(signal1);
+		Signal s2 = new Signal(signal2);
+		
+		// diz que quer enviar algo por esses sinais
+		input1.setEvent(false);
+		input2.setEvent(false);
+		input3.setEvent(false);
+		s1.setEvent(true);
+		s2.setEvent(true);
+		
+		//output1.setSignal(s2);
+		//output1.write();
+		output2.setSignal(s1);
+		output2.write();
 	}
 
 	/**
@@ -169,7 +230,27 @@ public class Alu {
 	 * @param op2
 	 */
 	public void xor(int op1, int op2) {
-		//stub
+		System.out.println(">>> Realiza XOR ");
+		Integer resultado = op1^op2;
+		
+		System.out.println(">>> Grava resultado no canal");
+		String signal1 = resultado.toString();
+		String signal2 = (resultado == 0)? "v" : "f";
+		
+		Signal s1 = new Signal(signal1);
+		Signal s2 = new Signal(signal2);
+		
+		// diz que quer enviar algo por esses sinais
+		input1.setEvent(false);
+		input2.setEvent(false);
+		input3.setEvent(false);
+		s1.setEvent(true);
+		s2.setEvent(true);
+		
+		//output1.setSignal(s2);
+		//output1.write();
+		output2.setSignal(s1);
+		output2.write();
 	}
 
 	/**
@@ -178,7 +259,27 @@ public class Alu {
 	 * @param op2
 	 */
 	public void not(int op1) {
-		//stub
+		System.out.println(">>> Realiza SUB ");
+		Integer resultado = -op1;
+		
+		System.out.println(">>> Grava resultado no canal");
+		String signal1 = resultado.toString();
+		String signal2 = (resultado == 0)? "v" : "f";
+		
+		Signal s1 = new Signal(signal1);
+		Signal s2 = new Signal(signal2);
+		
+		// diz que quer enviar algo por esses sinais
+		input1.setEvent(false);
+		input2.setEvent(false);
+		input3.setEvent(false);
+		s1.setEvent(true);
+		s2.setEvent(true);
+		
+		//output1.setSignal(s2);
+		//output1.write();
+		output2.setSignal(s1);
+		output2.write();
 	}
 
 }

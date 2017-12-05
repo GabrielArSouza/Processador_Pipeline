@@ -35,6 +35,10 @@ public class Main {
 		// sinal entre DATA_MEMORY e REGISTERS_GROUP
 		Canal canal_dataMemory_regsGroup = new Canal();
 		
+		// Sai do output6 RegGroups para input3 do DataMemory (Dado)
+		Canal canal_regsGroup_DataMemoryDado = new Canal();
+		// Sai do output7 RegGroups para input4 do DataMemory (Endereço)
+		Canal canal_regsGroup_DataMemoryEnd = new Canal();
 		/*
 		 * CRIANDO PORTAS
 		 */
@@ -81,6 +85,11 @@ public class Main {
 		Port output_2_dataMemory = new Port(new Canal(initial_teste));
 		Port output_4_regsGroup = new Port(new Canal(initial_teste));
 		
+		Port output_6_regsGroup = new Port( canal_regsGroup_DataMemoryDado);
+		Port output_7_regsGroup = new Port( canal_regsGroup_DataMemoryEnd);
+		
+		Port input_3_dataMemory = new Port( canal_regsGroup_DataMemoryDado);
+		Port input_4_dataMemory = new Port( canal_regsGroup_DataMemoryEnd);
 		/*
 		 * INSTANCIANDO TODOS OS COMPONENTES
 		 */
@@ -89,11 +98,14 @@ public class Main {
 		// instancia componente InstructionMemory
 		InstructionMemory instMemory = new InstructionMemory( input_instMemory, output_instMemory );
 		// instancia componente registerGroup
-		RegistersGroup regsGroup = new RegistersGroup( input_1_regsGroup, input_2_regsGroup,  input_3_regsGroup, output_1_regsGroup, output_2_regsGroup, output_3_regsGroup, output_4_regsGroup, output_5_regsGroup );
+		RegistersGroup regsGroup = new RegistersGroup( input_1_regsGroup, input_2_regsGroup,  input_3_regsGroup, 
+				output_1_regsGroup, output_2_regsGroup, output_3_regsGroup, output_4_regsGroup, output_5_regsGroup, 
+				output_6_regsGroup, output_7_regsGroup);
 		// instancia componente ALU
 		Alu ula = new Alu( input_1_ula, input_2_ula, input_3_ula, output_1_ula, output_2_ula );
 		// instancia componente DataMemory
-		DataMemory dataMemory = new DataMemory(input_1_dataMemory, input_2_dataMemory, output_1_dataMemory, output_2_dataMemory);
+		DataMemory dataMemory = new DataMemory(input_1_dataMemory, input_2_dataMemory, input_3_dataMemory,
+				input_4_dataMemory, output_1_dataMemory, output_2_dataMemory);
 								
 		
 		/*
@@ -151,6 +163,11 @@ public class Main {
 				break;
 				
 			case 4:
+				
+				input_1_ula.read(); input_2_ula.read(); input_3_ula.read();
+				System.out.println("Chamou ULA\n");
+				ula.execute();
+				
 				input_1_dataMemory.read();
 				System.out.println("Chamou o dataMemory\n");
 				dataMemory.execute();
@@ -173,9 +190,21 @@ public class Main {
 			case 5:
 				continua = false;
 				
+				
+
+				
+				if (input_2_regsGroup.read() != null) continua = true;
+				System.out.println("chamou o regsGroups input 2\n");
+				regsGroup.execute();
+				
 				if (input_3_regsGroup.read() != null) continua = true;
 				System.out.println("chamou o regsGroups input 3\n");
 				regsGroup.execute();
+				
+				if( input_1_ula.read() != null && input_2_ula.read() != null && input_3_ula.read() != null) continua = true;
+				System.out.println("Chamou ULA\n");
+				ula.execute();
+				
 				
 				if (input_1_dataMemory.read() != null) continua = true;
 				System.out.println("Chamou o dataMemory\n");
@@ -189,6 +218,9 @@ public class Main {
 				System.out.println("Chamou o instMem\n");
 				instMemory.execute();
 				
+				if (input_3_dataMemory.read() != null && input_4_dataMemory.read() != null) continua = true;
+				System.out.println("Chamou o dataMemory para store\n");
+				dataMemory.executeWrite();
 				
 				System.out.println(pc.getProxInst());
 				System.out.println(execPc);
