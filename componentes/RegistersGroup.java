@@ -16,6 +16,7 @@ public class RegistersGroup {
 	Port output1, output2; // dados que vao para ULA
 	Port output3; // dado que vai para DataMemory
 	Port output4; // manda sinal para PC
+	Port output5; // dado que sinaliza operação da ULA
 	
 	// vetor de registradores
 	Register[] registers;
@@ -23,7 +24,8 @@ public class RegistersGroup {
 	String regDestino; // registrador destino (auxilio para LW)
 		
 	// construtor
-	public RegistersGroup( Port input1, Port input2, Port input3, Port output1, Port output2, Port output3, Port output4 ){
+	public RegistersGroup( Port input1, Port input2, Port input3, 
+			Port output1, Port output2, Port output3, Port output4, Port output5 ){
 		
 		this.input1 = input1;
 		this.input2 = input2;
@@ -32,6 +34,7 @@ public class RegistersGroup {
 		this.output2 = output2;
 		this.output3 = output3;
 		this.output4 = output4;
+		this.output5 = output5;
 		
 		registers = new Register[32]; // decisao de projeto
 		implantarRegistradores();
