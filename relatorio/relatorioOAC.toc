@@ -1,0 +1,17 @@
+\select@language {brazil}
+\contentsline {section}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{1}
+\contentsline {section}{\numberline {2}Decis\IeC {\~o}es de Projeto}{1}
+\contentsline {subsection}{\numberline {2.1}Tamanho da palavra do processador}{1}
+\contentsline {subsection}{\numberline {2.2}O formato da palavra de instru\IeC {\c c}\IeC {\~a}o}{1}
+\contentsline {subsection}{\numberline {2.3}Os modos de endere\IeC {\c c}amento de operandos}{2}
+\contentsline {subsection}{\numberline {2.4}O tamanho do banco de registradores}{2}
+\contentsline {subsection}{\numberline {2.5}O tamanho das mem\IeC {\'o}rias de instru\IeC {\c c}\IeC {\~o}es e de dados}{2}
+\contentsline {subsection}{\numberline {2.6}O n\IeC {\'u}mero e tipos de barramentos da parte operativa}{2}
+\contentsline {section}{\numberline {3}Descri\IeC {\c c}\IeC {\~a}o da Solu\IeC {\c c}\IeC {\~a}o}{3}
+\contentsline {subsection}{\numberline {3.1}AND, OR, XOR, NOT}{4}
+\contentsline {subsection}{\numberline {3.2}ADD}{4}
+\contentsline {subsection}{\numberline {3.3}SUB}{4}
+\contentsline {subsection}{\numberline {3.4}LW}{4}
+\contentsline {subsection}{\numberline {3.5}ST}{4}
+\contentsline {section}{\numberline {4}Pipeline}{5}
+\contentsline {section}{\numberline {5}Conclus\IeC {\~a}o}{7}
